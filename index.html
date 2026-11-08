@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MANIACT</title>
+<meta name="description" content="MANIACT — Southern Gothic trap-metal. they heard crazy. I heard range.">
+<style>
+  :root{
+    --bg:#0a0a0b;
+    --panel:#121214;
+    --ink:#e8e2d6;
+    --dim:#9a937f;
+    --faint:#5c574c;
+    --line:#232320;
+    --accent:#b8ab8d;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:820px;margin:0 auto;padding:0 24px;}
+  a{color:inherit;}
+
+  /* ---------- hero ---------- */
+  header{
+    min-height:92vh;
+    display:flex;flex-direction:column;justify-content:center;align-items:center;
+    text-align:center;
+    padding:64px 24px;
+  }
+  header h1{
+    font-family:Georgia,"Times New Roman",Times,serif;
+    font-weight:400;
+    font-size:clamp(3rem,11vw,6.5rem);
+    letter-spacing:.14em;
+    line-height:1.05;
+  }
+  header .lines{
+    margin-top:34px;
+    font-family:Georgia,"Times New Roman",Times,serif;
+    font-style:italic;
+    font-size:clamp(1.15rem,3.4vw,1.6rem);
+  }
+  header .lines span{display:block;}
+  header .genre{
+    margin-top:26px;
+    font-size:.78rem;
+    letter-spacing:.34em;
+    text-transform:uppercase;
+    color:var(--dim);
+  }
+  header .freq{
+    margin-top:64px;
+    font-size:.72rem;
+    letter-spacing:.3em;
+    color:var(--faint);
+  }
+
+  /* ---------- sections ---------- */
+  section{padding:84px 0;border-top:1px solid var(--line);}
+  .kicker{
+    font-size:.72rem;
+    letter-spacing:.34em;
+    text-transform:uppercase;
+    color:var(--faint);
+    margin-bottom:28px;
+  }
+  h2{
+    font-family:Georgia,"Times New Roman",Times,serif;
+    font-weight:400;
+    font-size:clamp(1.7rem,5vw,2.4rem);
+    letter-spacing:.06em;
+    margin-bottom:14px;
+  }
+  p.lede{color:var(--dim);max-width:54ch;}
+  .btn{
+    display:inline-block;
+    margin-top:30px;
+    padding:13px 30px;
+    border:1px solid var(--accent);
+    color:var(--ink);
+    text-decoration:none;
+    font-size:.8rem;
+    letter-spacing:.26em;
+    text-transform:uppercase;
+    transition:background .2s,color .2s;
+  }
+  .btn:hover{background:var(--accent);color:#0a0a0b;}
+  .note{
+    margin-top:20px;
+    font-size:.78rem;
+    letter-spacing:.14em;
+    color:var(--faint);
+  }
+
+  /* ---------- album ---------- */
+  .album{display:flex;gap:36px;align-items:flex-start;flex-wrap:wrap;}
+  .album img{
+    width:300px;max-width:100%;height:auto;display:block;
+    border:1px solid var(--line);
+  }
+  .album .side{flex:1;min-width:260px;}
+
+  /* ---------- track lists ---------- */
+  ol.tracks{list-style:none;counter-reset:t;}
+  ol.tracks li{
+    counter-increment:t;
+    display:flex;align-items:baseline;gap:18px;
+    padding:13px 2px;
+    border-bottom:1px solid var(--line);
+    font-family:Georgia,"Times New Roman",Times,serif;
+    font-size:clamp(1rem,2.8vw,1.22rem);
+    letter-spacing:.05em;
+  }
+  ol.tracks li::before{
+    content:counter(t,decimal-leading-zero);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+    font-size:.72rem;
+    letter-spacing:.2em;
+    color:var(--faint);
+    min-width:2.2em;
+  }
+  ol.tracks li:last-child{border-bottom:none;}
+  ol.tracks a{text-decoration:none;}
+  ol.tracks a:hover{text-decoration:underline;text-underline-offset:4px;}
+  .time{
+    margin-left:auto;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+    font-size:.78rem;
+    letter-spacing:.14em;
+    color:var(--faint);
+  }
+  .room{
+    margin-left:auto;
+    font-size:.72rem;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+    letter-spacing:.22em;
+    text-transform:uppercase;
+    color:var(--faint);
+    text-align:right;
+  }
+
+  /* ---------- standard grid ---------- */
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
+    gap:34px 26px;
+  }
+  .cell a{text-decoration:none;}
+  .cell img{
+    width:100%;height:auto;display:block;
+    border:1px solid var(--line);
+  }
+  .cell .t{
+    margin-top:14px;
+    font-family:Georgia,"Times New Roman",Times,serif;
+    font-size:1.08rem;
+    letter-spacing:.06em;
+  }
+  .cell a:hover .t{text-decoration:underline;text-underline-offset:4px;}
+  .cell .panel{
+    aspect-ratio:1/1;
+    background:var(--panel);
+    border:1px solid var(--line);
+    display:flex;flex-direction:column;justify-content:center;align-items:center;
+    text-align:center;padding:20px;
+  }
+  .cell .panel .hz{
+    font-family:Georgia,"Times New Roman",Times,serif;
+    font-size:2rem;
+    letter-spacing:.08em;
+  }
+  .cell .panel .sub{
+    margin-top:10px;
+    font-size:.74rem;
+    letter-spacing:.18em;
+    text-transform:uppercase;
+    color:var(--dim);
+    line-height:1.9;
+  }
+
+  /* ---------- measured ---------- */
+  table.data{width:100%;border-collapse:collapse;}
+  table.data td{
+    padding:14px 2px;
+    border-bottom:1px solid var(--line);
+    vertical-align:baseline;
+  }
+  table.data tr:last-child td{border-bottom:none;}
+  table.data .song{
+    font-family:Georgia,"Times New Roman",Times,serif;
+    font-size:1.05rem;
+    letter-spacing:.05em;
+  }
+  table.data .val{
+    text-align:right;
+    font-size:.82rem;
+    letter-spacing:.12em;
+    color:var(--dim);
+    white-space:nowrap;
+  }
+
+  /* ---------- films ---------- */
+  .films{list-style:none;}
+  .films li{
+    padding:15px 2px;
+    border-bottom:1px solid var(--line);
+    font-family:Georgia,"Times New Roman",Times,serif;
+    font-size:clamp(1rem,2.8vw,1.22rem);
+    letter-spacing:.05em;
+    display:flex;gap:18px;align-items:baseline;
+  }
+  .films li:last-child{border-bottom:none;}
+  .films .tag{
+    margin-left:auto;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+    font-size:.72rem;
+    letter-spacing:.22em;
+    text-transform:uppercase;
+    color:var(--faint);
+    text-align:right;
+  }
+
+  /* ---------- footer ---------- */
+  footer{
+    border-top:1px solid var(--line);
+    padding:52px 0 64px;
+    text-align:center;
+  }
+  footer .name{
+    font-family:Georgia,"Times New Roman",Times,serif;
+    letter-spacing:.3em;
+    font-size:.95rem;
+    margin-bottom:14px;
+  }
+  footer a{
+    color:var(--dim);
+    text-decoration:none;
+    font-size:.78rem;
+    letter-spacing:.24em;
+    text-transform:uppercase;
+  }
+  footer a:hover{color:var(--ink);}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>MANIACT</h1>
+  <div class="lines">
+    <span>they heard crazy.</span>
+    <span>I heard range.</span>
+  </div>
+  <div class="genre">Southern Gothic trap-metal</div>
+  <div class="freq">36.5 Hz</div>
+</header>
+
+<div class="wrap">
+
+  <section id="listen">
+    <div class="kicker">Listen</div>
+    <div class="album">
+      <img src="covers/deadcalm.webp" alt="DEADCALM album cover — MANIACT standing against a cracked wall">
+      <div class="side">
+        <h2>DEADCALM</h2>
+        <p class="lede">The debut album. Eight tracks.</p>
+        <a class="btn" href="https://suno.com/album/a00fabff-1026-4604-9ad8-f7d00b050559">Play on Suno</a>
+        <div class="note">36.5 Hz — headphones / sub required</div>
+      </div>
+    </div>
+    <ol class="tracks" style="margin-top:44px;">
+      <li><a href="https://suno.com/song/bf4346df-2785-4d66-b5c7-0aa498320570">HIDDEN IN PLAIN SIGHT</a> <span class="time">3:36</span></li>
+      <li><a href="https://suno.com/song/caac12d7-b45e-4b84-82d7-1aa1cc6878a5">DA-RANGE</a> <span class="time">3:38</span></li>
+      <li><a href="https://suno.com/song/2249463f-b695-40e3-9672-2a0c4647407e">WILD EYES</a> <span class="time">5:37</span></li>
+      <li><a href="https://suno.com/song/c3180a80-90ed-40e8-87cc-994677c86bb2">MAN, I ACT</a> <span class="time">3:31</span></li>
+      <li><a href="https://suno.com/song/42461268-6992-4fb7-b826-298cc02ee5e3">FILE THE PERIOD</a> <span class="time">3:56</span></li>
+      <li><a href="https://suno.com/song/3ee98405-5295-4fd1-9bf3-e3d3438da68b">KEY THOUGH</a></li>
+      <li><a href="https://suno.com/song/a55b5b88-b401-44d7-9fb0-29131c3502f5">GRAVEYARD BASS</a> <span class="time">4:25</span></li>
+      <li><a href="https://suno.com/song/8226f634-09b9-42b7-994c-bb2a8d9eff89">EIGHT DAYS LATER</a></li>
+    </ol>
+  </section>
+
+  <section id="standard">
+    <div class="kicker">The standard</div>
+    <div class="grid">
+      <div class="cell">
+        <a href="https://suno.com/song/a55b5b88-b401-44d7-9fb0-29131c3502f5">
+          <div class="panel">
+            <div class="hz">36.5 Hz</div>
+            <div class="sub">Over a third of its energy<br>below 60 Hz</div>
+          </div>
+          <div class="t">GRAVEYARD BASS</div>
+        </a>
+      </div>
+      <div class="cell">
+        <a href="https://suno.com/song/c3180a80-90ed-40e8-87cc-994677c86bb2">
+          <img src="covers/man-i-act.webp" alt="MAN, I ACT cover">
+          <div class="t">MAN, I ACT</div>
+        </a>
+      </div>
+      <div class="cell">
+        <a href="https://suno.com/song/42461268-6992-4fb7-b826-298cc02ee5e3">
+          <img src="covers/file-the-period.webp" alt="FILE THE PERIOD cover">
+          <div class="t">FILE THE PERIOD</div>
+        </a>
+      </div>
+      <div class="cell">
+        <a href="https://suno.com/song/6493e9e1-b145-4f12-9f68-7c714dd057ea">
+          <img src="covers/lil-schizo.webp" alt="LIL SCHIZO cover">
+          <div class="t">LIL SCHIZO</div>
+        </a>
+      </div>
+      <div class="cell">
+        <a href="https://suno.com/song/8226f634-09b9-42b7-994c-bb2a8d9eff89">
+          <img src="covers/eight-days-later.webp" alt="EIGHT DAYS LATER cover">
+          <div class="t">EIGHT DAYS LATER</div>
+        </a>
+      </div>
+      <div class="cell">
+        <a href="https://suno.com/song/828f57bd-8e5c-48db-80aa-7192dedf1cba">
+          <img src="covers/few-words.webp" alt="FEW WORDS cover">
+          <div class="t">FEW WORDS</div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section id="measured">
+    <div class="kicker">Measured</div>
+    <table class="data">
+      <tr><td class="song">GRAVEYARD BASS</td><td class="val">peak 36.5 Hz · over ⅓ of energy under 60 Hz</td></tr>
+      <tr><td class="song">MISHEARD</td><td class="val">36.4% of energy under 60 Hz · mean peak 39 Hz</td></tr>
+      <tr><td class="song">FEW WORDS</td><td class="val">parked at 36.5 Hz</td></tr>
+      <tr><td class="song">MAN, I ACT</td><td class="val">peaks near 39 Hz · barely moves</td></tr>
+      <tr><td class="song">HIDDEN IN PLAIN SIGHT</td><td class="val">46.5 Hz</td></tr>
+    </table>
+  </section>
+
+  <section id="films">
+    <div class="kicker">Films</div>
+    <ul class="films">
+      <li>FEW WORDS <span class="tag">Three cuts</span></li>
+      <li>MISHEARD <span class="tag">Three cuts</span></li>
+      <li>The floor, filmed <span class="tag">Daylight</span></li>
+    </ul>
+  </section>
+
+  <section id="next">
+    <div class="kicker">Next</div>
+    <h2>FELT, NOT HEARD</h2>
+    <p class="lede">One house. Walked in order. Daylight.</p>
+    <ol class="tracks">
+      <li><a href="https://suno.com/song/828f57bd-8e5c-48db-80aa-7192dedf1cba">FEW WORDS</a> <span class="room">Front room</span></li>
+      <li>WAIST UP <span class="room">Doorway</span></li>
+      <li>TO MY LEFT <span class="room">Chair</span></li>
+      <li>AS BEFORE <span class="room">Den</span></li>
+      <li>DEAD CALM <span class="room">Still room</span></li>
+      <li>MOUTH FULL OF SWITCHES <span class="room">Back room</span></li>
+      <li>ACT EXACT <span class="room">Mirror room</span></li>
+      <li>MUD ON MY HALO <span class="room">Doorstep</span></li>
+      <li>WRONG MAN <span class="room">Last room</span></li>
+    </ol>
+  </section>
+
+</div>
+
+<footer>
+  <div class="name">MANIACT</div>
+  <a href="https://suno.com/@maniact">Suno — @maniact</a>
+</footer>
+
+</body>
+</html>
