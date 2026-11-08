@@ -29,38 +29,70 @@
 
   /* ---------- hero ---------- */
   header{
-    min-height:92vh;
-    display:flex;flex-direction:column;justify-content:center;align-items:center;
+    position:relative;
+    min-height:100svh;
+    display:flex;flex-direction:column;justify-content:flex-start;align-items:center;
     text-align:center;
-    padding:64px 24px;
+    overflow:hidden;
+    padding:11vh 24px 64px;
   }
+  header .hero-img{
+    position:absolute;inset:0;
+    width:100%;height:100%;
+    object-fit:cover;object-position:30% 38%;
+    animation:drift 26s ease-in-out infinite alternate;
+  }
+  @keyframes drift{from{transform:scale(1.0);}to{transform:scale(1.07);}}
+  header .shade{
+    position:absolute;inset:0;
+    background:linear-gradient(to bottom,
+      rgba(10,10,11,.62) 0%,
+      rgba(10,10,11,.18) 34%,
+      rgba(10,10,11,.06) 58%,
+      rgba(10,10,11,.88) 100%);
+  }
+  header .hero-in{position:relative;z-index:1;}
   header h1{
     font-family:Georgia,"Times New Roman",Times,serif;
     font-weight:400;
     font-size:clamp(3rem,11vw,6.5rem);
     letter-spacing:.14em;
     line-height:1.05;
+    text-shadow:0 2px 34px rgba(0,0,0,.55);
   }
   header .lines{
-    margin-top:34px;
+    margin-top:30px;
     font-family:Georgia,"Times New Roman",Times,serif;
     font-style:italic;
     font-size:clamp(1.15rem,3.4vw,1.6rem);
+    text-shadow:0 1px 18px rgba(0,0,0,.7);
   }
   header .lines span{display:block;}
   header .genre{
-    margin-top:26px;
+    margin-top:24px;
     font-size:.78rem;
     letter-spacing:.34em;
     text-transform:uppercase;
-    color:var(--dim);
+    color:var(--ink);
+    opacity:.85;
+    text-shadow:0 1px 12px rgba(0,0,0,.8);
   }
   header .freq{
-    margin-top:64px;
+    margin-top:56px;
     font-size:.72rem;
     letter-spacing:.3em;
-    color:var(--faint);
+    color:var(--ink);
+    opacity:.75;
+    text-shadow:0 1px 12px rgba(0,0,0,.85);
   }
+  header .cue{
+    position:absolute;left:50%;bottom:26px;transform:translateX(-50%);
+    z-index:1;
+    font-size:.68rem;letter-spacing:.34em;text-transform:uppercase;
+    color:var(--ink);opacity:.55;
+    animation:pulse 2.6s ease-in-out infinite;
+  }
+  @keyframes pulse{0%,100%{opacity:.3;}50%{opacity:.65;}}
 
   /* ---------- sections ---------- */
   section{padding:84px 0;border-top:1px solid var(--line);}
@@ -99,6 +131,46 @@
     color:var(--faint);
   }
 
+  /* reveal on scroll */
+  .rv{opacity:0;transform:translateY(18px);transition:opacity .8s ease,transform .8s ease;}
+  .rv.on{opacity:1;transform:none;}
+
+  /* ---------- feature (ORBIT) ---------- */
+  .feature{display:flex;gap:40px;align-items:flex-start;flex-wrap:wrap;}
+  .feature .coverbox{width:340px;max-width:100%;}
+  .feature .coverbox img{
+    width:100%;height:auto;display:block;
+    border:1px solid var(--line);
+  }
+  .feature .side{flex:1;min-width:280px;}
+  .stats{margin-top:26px;border-top:1px solid var(--line);}
+  .stats div{
+    display:flex;justify-content:space-between;gap:20px;
+    padding:11px 2px;border-bottom:1px solid var(--line);
+    font-size:.82rem;letter-spacing:.12em;color:var(--dim);
+  }
+  .stats div b{
+    font-family:Georgia,"Times New Roman",Times,serif;
+    font-weight:400;font-size:1rem;letter-spacing:.05em;color:var(--ink);
+    white-space:nowrap;
+  }
+  .filmrow{
+    margin-top:44px;
+    display:flex;gap:40px;align-items:flex-start;flex-wrap:wrap;
+  }
+  .filmrow video{
+    width:min(320px,84vw);
+    aspect-ratio:9/16;
+    background:#000;
+    border:1px solid var(--line);
+    display:block;
+  }
+  .filmrow .cap{flex:1;min-width:240px;}
+  .filmrow .cap .t{
+    font-family:Georgia,"Times New Roman",Times,serif;
+    font-size:1.3rem;letter-spacing:.05em;margin-bottom:10px;
+  }
+
   /* ---------- album ---------- */
   .album{display:flex;gap:36px;align-items:flex-start;flex-wrap:wrap;}
   .album img{
@@ -117,7 +189,9 @@
     font-family:Georgia,"Times New Roman",Times,serif;
     font-size:clamp(1rem,2.8vw,1.22rem);
     letter-spacing:.05em;
+    transition:padding-left .25s ease;
   }
+  ol.tracks li:hover{padding-left:10px;}
   ol.tracks li::before{
     content:counter(t,decimal-leading-zero);
     font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
@@ -156,7 +230,9 @@
   .cell img{
     width:100%;height:auto;display:block;
     border:1px solid var(--line);
+    transition:transform .35s ease,border-color .35s ease;
   }
+  .cell a:hover img{transform:translateY(-5px);border-color:var(--accent);}
   .cell .t{
     margin-top:14px;
     font-family:Georgia,"Times New Roman",Times,serif;
@@ -170,7 +246,9 @@
     border:1px solid var(--line);
     display:flex;flex-direction:column;justify-content:center;align-items:center;
     text-align:center;padding:20px;
+    transition:transform .35s ease,border-color .35s ease;
   }
+  .cell a:hover .panel{transform:translateY(-5px);border-color:var(--accent);}
   .cell .panel .hz{
     font-family:Georgia,"Times New Roman",Times,serif;
     font-size:2rem;
@@ -217,6 +295,8 @@
     display:flex;gap:18px;align-items:baseline;
   }
   .films li:last-child{border-bottom:none;}
+  .films a{text-decoration:none;}
+  .films a:hover{text-decoration:underline;text-underline-offset:4px;}
   .films .tag{
     margin-left:auto;
     font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
@@ -247,25 +327,64 @@
     text-transform:uppercase;
   }
   footer a:hover{color:var(--ink);}
+
+  @media (prefers-reduced-motion: reduce){
+    header .hero-img{animation:none;}
+    header .cue{animation:none;}
+    .rv{opacity:1;transform:none;transition:none;}
+    ol.tracks li{transition:none;}
+  }
 </style>
 </head>
 <body>
 
 <header>
-  <h1>MANIACT</h1>
-  <div class="lines">
-    <span>they heard crazy.</span>
-    <span>I heard range.</span>
+  <img class="hero-img" src="covers/orbit-wide.webp" alt="MANIACT at rest by the pool, the room in orbit around him">
+  <div class="shade"></div>
+  <div class="hero-in">
+    <h1>MANIACT</h1>
+    <div class="lines">
+      <span>they heard crazy.</span>
+      <span>I heard range.</span>
+    </div>
+    <div class="genre">Southern Gothic trap-metal</div>
+    <div class="freq">36.5 Hz</div>
   </div>
-  <div class="genre">Southern Gothic trap-metal</div>
-  <div class="freq">36.5 Hz</div>
+  <div class="cue">Scroll</div>
 </header>
 
 <div class="wrap">
 
+  <section id="orbit">
+    <div class="kicker">Latest</div>
+    <div class="feature rv">
+      <div class="coverbox">
+        <img src="covers/orbit.webp" alt="ORBIT cover — MANIACT seated by the pool, VEXA beside him">
+      </div>
+      <div class="side">
+        <h2>ORBIT</h2>
+        <p class="lede">Trap rap and Southern Gothic in the same room. Fragments, heat, a still center — the blend nothing else sounds like.</p>
+        <div class="stats">
+          <div><span>Energy under 60 Hz</span><b>70%</b></div>
+          <div><span>Median peak</span><b>39 Hz</b></div>
+          <div><span>Standing</span><b>The heaviest measured</b></div>
+        </div>
+        <a class="btn" href="https://suno.com/@maniact">MANIACT on Suno</a>
+        <div class="note">36.5 Hz — headphones / sub required</div>
+      </div>
+    </div>
+    <div class="filmrow rv">
+      <video src="media/orbit-hook.mp4" poster="media/orbit-hook-poster.jpg" controls preload="none" playsinline></video>
+      <div class="cap">
+        <div class="t">The hook film</div>
+        <p class="lede">Thirty seconds. One frame, no cuts — the room alive around the two at rest, the final chorus under it.</p>
+      </div>
+    </div>
+  </section>
+
   <section id="listen">
     <div class="kicker">Listen</div>
-    <div class="album">
+    <div class="album rv">
       <img src="covers/deadcalm.webp" alt="DEADCALM album cover — MANIACT standing against a cracked wall">
       <div class="side">
         <h2>DEADCALM</h2>
@@ -334,6 +453,7 @@
   <section id="measured">
     <div class="kicker">Measured</div>
     <table class="data">
+      <tr><td class="song">ORBIT</td><td class="val">70% of energy under 60 Hz · median peak 39 Hz</td></tr>
       <tr><td class="song">GRAVEYARD BASS</td><td class="val">peak 36.5 Hz · over ⅓ of energy under 60 Hz</td></tr>
       <tr><td class="song">MISHEARD</td><td class="val">36.4% of energy under 60 Hz · mean peak 39 Hz</td></tr>
       <tr><td class="song">FEW WORDS</td><td class="val">parked at 36.5 Hz</td></tr>
@@ -345,6 +465,7 @@
   <section id="films">
     <div class="kicker">Films</div>
     <ul class="films">
+      <li><a href="#orbit">ORBIT</a> <span class="tag">The hook film</span></li>
       <li>FEW WORDS <span class="tag">Three cuts</span></li>
       <li>MISHEARD <span class="tag">Three cuts</span></li>
       <li>The floor, filmed <span class="tag">Daylight</span></li>
@@ -374,6 +495,31 @@
   <div class="name">MANIACT</div>
   <a href="https://suno.com/@maniact">Suno — @maniact</a>
 </footer>
+
+<script>
+  (function(){
+    var els = Array.prototype.slice.call(document.querySelectorAll('.rv'));
+    function check(){
+      els.forEach(function(e){
+        if(!e.classList.contains('on') && e.getBoundingClientRect().top < window.innerHeight * 0.94){
+          e.classList.add('on');
+        }
+      });
+    }
+    if('IntersectionObserver' in window){
+      var io = new IntersectionObserver(function(entries){
+        entries.forEach(function(en){
+          if(en.isIntersecting){en.target.classList.add('on');io.unobserve(en.target);}
+        });
+      },{threshold:.05,rootMargin:'0px 0px 12% 0px'});
+      els.forEach(function(e){io.observe(e);});
+    }
+    window.addEventListener('scroll',check,{passive:true});
+    window.addEventListener('resize',check);
+    window.addEventListener('load',check);
+    setTimeout(check,400); setTimeout(check,1600);
+  })();
+</script>
 
 </body>
 </html>
